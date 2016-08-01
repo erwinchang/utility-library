@@ -1,0 +1,47 @@
+PKT_NAME		:= lua-5.1.5
+PWD_DIR			:= $(shell pwd)
+STAGE_PATH		:= $(PWD_DIR)/build_dir
+PKT_DIR			:= $(STAGE_PATH)/$(PKT_NAME)
+ROOTFS_DIR		:= $(PWD_DIR)/../rootfs
+
+export ARCH=arm
+export CC=$(CROSS_COMPILE)gcc
+export LD=$(CROSS_COMPILE)ld
+export AR=$(CROSS_COMPILE)ar
+export AS=$(CROSS_COMPILE)as
+export CXX=$(CROSS_COMPILE)g++
+export ROOTFS_DIR=$(PWD_DIR)/../rootfs
+export CROSS=arm-hisiv100nptl-linux
+export TARGETMACH=arm-hisiv100nptl-linux
+export RANLIB=$(CROSS_COMPILE)ranlib
+export CFLAGS="-I$(ROOTFS_DIR)/include -L$(ROOTFS_DIR)/lib"
+
+all:
+	-mkdir -p $(STAGE_PATH)
+	@echo ""
+	@echo "=================================="
+	@echo "= STAGE_PATH: $(STAGE_PATH)"
+	@echo "= tgz: $(PWD_DIR)/$(PKT_NAME).tar.gz"
+	@echo "= PKT_DIR: $(PKT_DIR)"
+	@echo "= CROSS_COMPILE:$(CROSS_COMPILE)"
+	@echo "==================================="
+	@echo ""
+	@if [ ! -d $(PKT_DIR) ];then			   							\
+		tar -zxvf $(PWD_DIR)/$(PKT_NAME).tar.gz -C $(STAGE_PATH); 		\
+		make patch_file;												\
+	fi
+	make build_lua;
+
+
+build_lua:
+	@echo "--------- task build udev --------------"
+	mkdir -p $(ROOTFS_DIR)
+	cd $(PKT_DIR) && make linux CC="$(CROSS_COMPILE)gcc" AR="$(CROSS_COMPILE)ar rcu" RANLIB="$(CROSS_COMPILE)ranlib" CFLAGS="-I$(ROOTFS_DIR)/include" MYLDFLAGS="-L$(ROOTFS_DIR)/lib" 
+	cd $(PKT_DIR) && make install INSTALL_TOP=$(ROOTFS_DIR)
+
+patch_file:
+	cd $(STAGE_PATH)/$(PKT_NAME) && patch -p1 < ../../lua-5.1.5-xcompile.patch
+
+
+clean:
+	-rm -rf $(STAGE_PATH)
