@@ -1,2 +1,4 @@
-Makefile
 build_dir
+ncurses/Makefile
+lua/Makefile
+readline/Makefile

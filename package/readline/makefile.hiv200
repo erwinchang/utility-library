@@ -1,0 +1,44 @@
+PKT_NAME		:= readline-6.2
+PWD_DIR			:= $(shell pwd)
+STAGE_PATH		:= $(PWD_DIR)/build_dir
+PKT_DIR			:= $(STAGE_PATH)/$(PKT_NAME)
+
+export ARCH=arm
+export CC=arm-hisiv200-linux-gcc
+export AR=arm-hisiv200-linux-ar
+export AS=arm-hisiv200-linux-as
+export CXX=arm-hisiv200-linux-g++
+export TARGETMACH=arm-hisiv200-linux
+
+all:
+	-mkdir -p $(STAGE_PATH)
+	@echo ""
+	@echo "=================================="
+	@echo "= STAGE_PATH: $(STAGE_PATH)"
+	@echo "= tgz: $(PWD_DIR)/$(PKT_NAME).tar.gz"
+	@echo "= PKT_DIR: $(PKT_DIR)"
+	@echo "==================================="
+	@echo ""
+	@if [ ! -d $(PKT_DIR) ];then			   							\
+		tar -zxvf $(PWD_DIR)/$(PKT_NAME).tar.gz -C $(STAGE_PATH); 		\
+		make patch_file;												\
+	fi
+	make build_readline;
+
+
+build_readline:
+	@echo "--------- task build udev --------------"
+	mkdir -p $(ROOTFS_DIR)
+	pushd $(STAGE_PATH)/$(PKT_NAME); ./configure --prefix=$(ROOTFS_DIR) --host=$(TARGETMACH) LDFLAGS=-L$(ROOTFS_DIR)/lib; popd
+	make -C$(PKT_DIR) SHLIB_LIBS=-lncurses -j 6
+	make -C$(PKT_DIR) install
+
+patch_file:
+	cd $(STAGE_PATH)/$(PKT_NAME) && patch -p0 < ../../patch/readline62-001
+	cd $(STAGE_PATH)/$(PKT_NAME) && patch -p0 < ../../patch/readline62-002
+	cd $(STAGE_PATH)/$(PKT_NAME) && patch -p0 < ../../patch/readline62-003
+	cd $(STAGE_PATH)/$(PKT_NAME) && patch -p0 < ../../patch/readline62-004
+	cd $(STAGE_PATH)/$(PKT_NAME) && patch -p0 < ../../patch/readline62-005
+
+clean:
+	-rm -rf $(STAGE_PATH)
