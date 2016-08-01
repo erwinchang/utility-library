@@ -6,6 +6,12 @@
 make ubuntu
 ```
 
+## hiv200 (hisi glibc)
+
+```
+make hiv200
+```
+
 ## package source
 
 list | note | source |
