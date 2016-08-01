@@ -2,3 +2,5 @@ build_dir
 ncurses/Makefile
 lua/Makefile
 readline/Makefile
+libubox/Makefile
+rootfs
