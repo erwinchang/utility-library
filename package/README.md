@@ -20,7 +20,7 @@ ncuress | 5.9 | -- | -- |
 readline | 6.2 | -- | -- |
 lua  | [5.1.5][1] |  5.1.5 | 5.1.5 |
 libubox | 2014-08-04 | 2014-08-04 | 2015-11-08 |
-ubox | ubus-2014-09-17 | ubus-2014-09-17 | ubus-2015-05-25 |
+ubus | ubus-2014-09-17 | ubus-2014-09-17 | ubus-2015-05-25 |
 
 
 [1]:https://www.lua.org/ftp/lua-5.1.5.tar.gz
