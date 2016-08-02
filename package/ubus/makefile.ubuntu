@@ -6,7 +6,6 @@ PKT_DIR			:= $(STAGE_PATH)/$(PKT_NAME)
 TOOLCHAIN_FILE	:= cmake_install.ubuntu
 
 export DESTDIR  := $(ROOTFS_DIR)
-export PATH     := $(ROOTFS_DIR)/bin:$(PATH)
 
 all:
 	-mkdir -p $(STAGE_PATH)
@@ -25,19 +24,18 @@ all:
 	make build_ubus;
 
 
-build_libubus:
+build_ubus:
 	@echo "--------- task build --------------"
 	mkdir -p $(ROOTFS_DIR)
-	cd $(STAGE_PATH)/build && make VERBOSE=1
+	cd $(STAGE_PATH)/build && make VERBOSE=0
 	cd $(STAGE_PATH)/build && make install
 
 patch_cmake:
 	cp $(PWD_DIR)/$(TOOLCHAIN_FILE) $(STAGE_PATH)
 	echo "SET(CMAKE_FIND_ROOT_PATH $(ROOTFS_DIR))" >> $(STAGE_PATH)/$(TOOLCHAIN_FILE)
+	cp -rf $(PWD_DIR)/patch/* $(STAGE_PATH)/$(PKT_NAME)
 	mkdir -p $(STAGE_PATH)/build
 	cd $(STAGE_PATH)/build && cmake -DCMAKE_TOOLCHAIN_FILE=../$(TOOLCHAIN_FILE) ../$(PKT_NAME)
-
-
 
 clean:
 	-rm -rf $(STAGE_PATH)

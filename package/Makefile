@@ -11,13 +11,15 @@ ubuntu:
 	-cp -f readline/makefile.ubuntu readline/Makefile
 	-cp -f lua/makefile.ubuntu lua/Makefile
 	-cp -f libubox/makefile.ubuntu libubox/Makefile
+	-cp -f json-c/makefile.ubuntu json-c/Makefile
 	-cp -f ubus/makefile.ubuntu ubus/Makefile
 	make -Cncurses
 	make -Creadline
 	make -Clua
-	make -Clibubox
 	make -Cjson-c
-#	make -Cubus
+#	for libubox create blob_msg library
+	make -Clibubox
+	make -Cubus
 
 hiv200:
 	-mkdir -p $(ROOTFS_DIR)
@@ -25,10 +27,15 @@ hiv200:
 	-cp -f readline/makefile.hiv200 readline/Makefile
 	-cp -f lua/makefile.hiv200 lua/Makefile
 	-cp -f libubox/makefile.hiv200 libubox/Makefile
+	-cp -f json-c/makefile.hiv200 json-c/Makefile
+	-cp -f ubus/makefile.hiv200 ubus/Makefile
 	make -Cncurses
 	make -Creadline
 	make -Clua
+	make -Cjson-c
+#	for libubox create blob_msg library
 	make -Clibubox
+	make -Cubus
 
 clean:
 	rm -rf $(ROOTFS_DIR)

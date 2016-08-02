@@ -46,6 +46,7 @@ INSTALL(TARGETS ubox ubox-static
 ADD_SUBDIRECTORY(lua)
 
 find_library(json NAMES json-c json)
+MESSAGE("json:" ${json})
 IF(EXISTS ${json})
 	ADD_LIBRARY(blobmsg_json SHARED blobmsg_json.c)
 	TARGET_LINK_LIBRARIES(blobmsg_json ubox ${json})
