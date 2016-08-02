@@ -14,12 +14,13 @@ make hiv200
 
 ## package source
 
-list | note | source |
-:----|:--------|:------|
-ncuress | 5.9 | -- |
-readline | 6.2 | -- |
-lua  | [5.1.5][1] |  同openwrt使用的版本 |
-libubox | 2014-08-04 | openwrt使用2015-11-08-10429bcc |
+list | note | OpenWrt (14.07) | OpenWrt(15.04) |
+:----|:--------|:---------------------------|:--------------------------|
+ncuress | 5.9 | -- | -- |
+readline | 6.2 | -- | -- |
+lua  | [5.1.5][1] |  5.1.5 | 5.1.5 |
+libubox | 2014-08-04 | 2014-08-04 | 2015-11-08 |
+ubox | ubus-2014-09-17 | ubus-2014-09-17 | ubus-2015-05-25 |
 
 
 [1]:https://www.lua.org/ftp/lua-5.1.5.tar.gz
