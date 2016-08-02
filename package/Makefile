@@ -11,10 +11,13 @@ ubuntu:
 	-cp -f readline/makefile.ubuntu readline/Makefile
 	-cp -f lua/makefile.ubuntu lua/Makefile
 	-cp -f libubox/makefile.ubuntu libubox/Makefile
+	-cp -f ubus/makefile.ubuntu ubus/Makefile
 	make -Cncurses
 	make -Creadline
 	make -Clua
 	make -Clibubox
+	make -Cjson-c
+#	make -Cubus
 
 hiv200:
 	-mkdir -p $(ROOTFS_DIR)
