@@ -10,8 +10,9 @@ ubuntu:
 	-cp -f ncurses/makefile.ubuntu ncurses/Makefile
 	-cp -f readline/makefile.ubuntu readline/Makefile
 	-cp -f lua/makefile.ubuntu lua/Makefile
-	-cp -f libubox/makefile.ubuntu libubox/Makefile
 	-cp -f json-c/makefile.ubuntu json-c/Makefile
+	-cp -f libubox/makefile.ubuntu libubox/Makefile
+	-cp -f uci/makefile.ubuntu uci/Makefile
 	-cp -f ubus/makefile.ubuntu ubus/Makefile
 	make -Cncurses
 	make -Creadline
@@ -19,6 +20,7 @@ ubuntu:
 	make -Cjson-c
 #	for libubox create blob_msg library
 	make -Clibubox
+	make -Cuci
 	make -Cubus
 
 hiv200:
@@ -28,6 +30,7 @@ hiv200:
 	-cp -f lua/makefile.hiv200 lua/Makefile
 	-cp -f libubox/makefile.hiv200 libubox/Makefile
 	-cp -f json-c/makefile.hiv200 json-c/Makefile
+	-cp -f uci/makefile.hiv200 uci/Makefile
 	-cp -f ubus/makefile.hiv200 ubus/Makefile
 	make -Cncurses
 	make -Creadline
@@ -35,6 +38,7 @@ hiv200:
 	make -Cjson-c
 #	for libubox create blob_msg library
 	make -Clibubox
+	make -Cuci
 	make -Cubus
 
 clean:
@@ -45,3 +49,4 @@ clean:
 	[ -f json-c/Makefile ] && make -Cjson-c clean
 	[ -f libubox/Makefile ] && make -Clibubox clean
 	[ -f ubus/Makefile ] && make -Cubus clean
+	[ -f uci/Makefile ] && make -Cuci clean
