@@ -1,6 +1,6 @@
 
 PWD_DIR                 := $(shell pwd)
-export ROOTFS_DIR		:= $(PWD_DIR)/rootfs
+export ROOTFS_DIR		:= /opt/rootfs
 
 all:
 	@echo "make {ubuntu,hiv200}"

@@ -2,8 +2,6 @@ PKT_NAME		:= lua-5.1.5
 PWD_DIR			:= $(shell pwd)
 STAGE_PATH		:= $(PWD_DIR)/build_dir
 PKT_DIR			:= $(STAGE_PATH)/$(PKT_NAME)
-ROOTFS_DIR		:= $(PWD_DIR)/../rootfs
-
 
 export ARCH=arm
 export CROSS_COMPILE=arm-hisiv200-linux-
@@ -27,9 +25,9 @@ all:
 
 
 build_lua:
-	@echo "--------- task build udev --------------"
+	@echo "--------- task build $(PKT_NAME) --------------"
 	mkdir -p $(ROOTFS_DIR)
-	pushd $(PKT_DIR); make linux CC="$(CROSS_COMPILE)gcc" AR="$(CROSS_COMPILE)ar rcu" RANLIB="$(CROSS_COMPILE)ranlib" CFLAGS="-I$(ROOTFS_DIR)/include -L$(ROOTFS_DIR)/lib"; popd
+	pushd $(PKT_DIR); make linux CC=arm-hisiv200-linux-gcc AR="arm-hisiv200-linux-ar rcu" RANLIB=arm-hisiv200-linux-ranlib CFLAGS="-I$(ROOTFS_DIR)/include -L$(ROOTFS_DIR)/lib"; popd
 	cd $(PKT_DIR) && make install INSTALL_TOP=$(ROOTFS_DIR)
 
 patch_file:
