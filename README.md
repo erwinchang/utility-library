@@ -2,7 +2,7 @@
 
 ## openwrt utilities
 
-- [openwrt project][1]
+- [openwrt project package list ][1]
 
 目前使用到的共用library
 
@@ -15,7 +15,7 @@
 - libubus
  OpenWrt system message/RPC bus 
 
- ## Package Source
+## Package Source
 
 list | OpenWrt (14.07) | OpenWrt(15.04) |
 :----|:---------------------------|:--------------------------|
@@ -46,9 +46,9 @@ ubus |  ubus-2014-09-17 | ubus-2015-05-25 |
  - bin: ubus, ubusd
  - example: client, server
 
-# cross-commpileer package
+## cross-commpileer package
 
-## ubuntu 
+### ubuntu 
 
 - build docker:  erwinchang/ubuntu-12.04-32bit-build
 
@@ -56,7 +56,7 @@ ubus |  ubus-2014-09-17 | ubus-2015-05-25 |
 make ubuntu
 ```
 
-## hiv200 (hisi glibc)
+### hiv200 (hisi glibc)
 
 - build docker: erwinchang/build-hiv200
 
@@ -64,7 +64,7 @@ make ubuntu
 make hiv200
 ```
 
-## hiv100 (hisi uclibc)
+### hiv100 (hisi uclibc)
 
 - build docker: erwinchang/build-hiv100
 
@@ -84,20 +84,6 @@ git clone git://git.openwrt.org/15.05/openwrt.git
 
 ```
 git clone git://git.openwrt.org/14.07/openwrt.git
-```
-
-## Git 設定
-
-- 請先把 autocrlf 關閉
-
-```
-it config --global core.autocrlf false
-```
-
-- 關閉顯示 Modified (File Mode) 的檔案
-
-```
-git config core.filemode false
 ```
 
 ## OpenWrt  Note
@@ -145,6 +131,20 @@ Date:   Fri Jan 29 13:25:24 2016 +0000
     Backport of r48531.
     
     git-svn-id: svn://svn.openwrt.org/openwrt/branches/barrier_breaker@48549 3c298f89-4303-0410-b956-a3cf2f4a3e73
+```
+
+## Git 設定
+
+- 請先把 autocrlf 關閉
+
+```
+it config --global core.autocrlf false
+```
+
+- 關閉顯示 Modified (File Mode) 的檔案
+
+```
+git config core.filemode false
 ```
 
 [1]:http://git.openwrt.org/?a=project_list;pf=project
