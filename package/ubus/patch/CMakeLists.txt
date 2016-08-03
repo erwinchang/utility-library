@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 
 PROJECT(ubus C)
-ADD_DEFINITIONS(-Os -Wall -Werror --std=gnu99 -g3 -Wmissing-declarations -I$(ROOTFS_DIR)/usr/local/include -I$(ROOTFS_DIR)/include -L$(ROOTFS_DIR)/usr/local/lib)
+ADD_DEFINITIONS(-Os -Wall -Werror --std=gnu99 -g3 -Wmissing-declarations -I$ENV{ROOTFS_DIR}/usr/local/include -I$ENV{ROOTFS_DIR}/include)
 
 OPTION(BUILD_LUA "build Lua plugin" ON)
 OPTION(BUILD_EXAMPLES "build examples" ON)
@@ -19,7 +19,7 @@ IF(APPLE)
   LINK_DIRECTORIES(/opt/local/lib)
 ENDIF()
 
-LINK_DIRECTORIES(/opt/rootfs/usr/local/lib)
+LINK_DIRECTORIES($ENV{ROOTFS_DIR}/usr/local/lib)
 ADD_LIBRARY(ubus SHARED libubus.c libubus-io.c libubus-obj.c libubus-sub.c libubus-req.c)
 TARGET_LINK_LIBRARIES(ubus ubox)
 
@@ -28,11 +28,9 @@ TARGET_LINK_LIBRARIES(ubusd ubox)
 
 find_library(json NAMES json-c json)
 MESSAGE("json:" ${json})
-find_library(blobjson NAMES blobmsg_json)
-MESSAGE("blobjson:" ${blobjson})
 ADD_EXECUTABLE(cli cli.c)
 SET_TARGET_PROPERTIES(cli PROPERTIES OUTPUT_NAME ubus)
-TARGET_LINK_LIBRARIES(cli ubus ubox ${blobjson} ${json})
+TARGET_LINK_LIBRARIES(cli ubus ubox blobmsg_json ${json})
 
 ADD_SUBDIRECTORY(lua)
 ADD_SUBDIRECTORY(examples)

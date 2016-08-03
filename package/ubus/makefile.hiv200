@@ -26,8 +26,8 @@ all:
 build_ubox:
 	@echo "--------- task build --------------"
 	mkdir -p $(ROOTFS_DIR)
-	cd $(STAGE_PATH)/build && make VERBOSE=1
-#	cd $(STAGE_PATH)/build && make install
+	pushd $(STAGE_PATH)/build; make VERBOSE=1; popd
+	pushd $(STAGE_PATH)/build; make install; popd
 
 patch_cmake:
 	cp $(PWD_DIR)/$(TOOLCHAIN_FILE) $(STAGE_PATH)
