@@ -23,6 +23,12 @@ json-c | json-c-0.11 | json-c-0.11 | json-c-0.12 |
 libubox | 2014-08-04 | 2014-08-04 | 2015-11-08 |
 ubus | ubus-2014-09-17 | ubus-2014-09-17 | ubus-2015-05-25 |
 
+- json-c
+ - libjson-c.so 
+ 由 arraylist.c debug.c json_c_version.c json_object.c json_object_iterator.c json_tokener.c json_util.c linkhash.c printbuf.c 產生
+ - libjson.so
+ 由 libjson.c 產生
+
 - libubox 產生下例檔案
  - libubx.so
  - libblobmsg_json.so

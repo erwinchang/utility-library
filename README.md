@@ -29,6 +29,19 @@ git clone git://git.openwrt.org/15.05/openwrt.git
 git clone git://git.openwrt.org/14.07/openwrt.git
 ```
 
+## Git 設定
+
+- 請先把 autocrlf 關閉
+
+```
+it config --global core.autocrlf false
+```
+
+- 關閉顯示 Modified (File Mode) 的檔案
+
+```
+git config core.filemode false
+```
 
 [1]:http://git.openwrt.org/?a=project_list;pf=project
 [2]:https://dev.openwrt.org/wiki/GetSource
