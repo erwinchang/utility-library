@@ -45,9 +45,3 @@ clean:
 	[ -f json-c/Makefile ] && make -Cjson-c clean
 	[ -f libubox/Makefile ] && make -Clibubox clean
 	[ -f ubus/Makefile ] && make -Cubus clean
-	rm -f ncurses/Makefile
-	rm -f readline/Makefile
-	rm -f lua/Makefile
-	rm -f json-c/Makefile
-	rm -f libubox/Makefile
-	rm -f ubus/Makefile

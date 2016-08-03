@@ -19,6 +19,7 @@ list | note | OpenWrt (14.07) | OpenWrt(15.04) |
 ncuress | 5.9 | -- | -- |
 readline | 6.2 | -- | -- |
 lua  | [5.1.5][1] |  5.1.5 | 5.1.5 |
+json-c | json-c-0.11 | json-c-0.11 | json-c-0.12 |
 libubox | 2014-08-04 | 2014-08-04 | 2015-11-08 |
 ubus | ubus-2014-09-17 | ubus-2014-09-17 | ubus-2015-05-25 |
 

@@ -1,4 +1,6 @@
 build_dir
+json-c/Makefile
+ubus/Makefile
 ncurses/Makefile
 lua/Makefile
 readline/Makefile
