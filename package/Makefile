@@ -39,7 +39,15 @@ hiv200:
 
 clean:
 	rm -rf $(ROOTFS_DIR)
-	make -Cncurses clean
-	make -Creadline clean
-	make -Clua clean
-	make -Clibubox clean
+	[ -f ncurses/Makefile ] && make -Cncurses clean
+	[ -f readline/Makefile ] && make -Creadline clean
+	[ -f lua/Makefile ] && make -Clua clean
+	[ -f json-c/Makefile ] && make -Cjson-c clean
+	[ -f libubox/Makefile ] && make -Clibubox clean
+	[ -f ubus/Makefile ] && make -Cubus clean
+	rm -f ncurses/Makefile
+	rm -f readline/Makefile
+	rm -f lua/Makefile
+	rm -f json-c/Makefile
+	rm -f libubox/Makefile
+	rm -f ubus/Makefile
