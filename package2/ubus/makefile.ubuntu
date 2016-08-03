@@ -1,0 +1,39 @@
+PKT_NAME		:= ubus-2015-05-25
+PWD_DIR			:= $(shell pwd)
+STAGE_PATH		:= $(PWD_DIR)/build_dir
+PKT_DIR			:= $(STAGE_PATH)/$(PKT_NAME)
+
+TOOLCHAIN_FILE	:= cmake_install.ubuntu
+
+#for install prefix
+export DESTDIR  := $(ROOTFS_DIR)
+
+all:
+	-mkdir -p $(STAGE_PATH)
+	@echo ""
+	@echo "=================================="
+	@echo "= STAGE_PATH: $(STAGE_PATH)"
+	@echo "= tgz: $(PWD_DIR)/$(PKT_NAME).tar.gz"
+	@echo "= PKT_DIR: $(PKT_DIR)"
+	@echo "==================================="
+	@echo ""
+	@if [ ! -d $(PKT_DIR) ];then			   							\
+		tar -zxvf $(PWD_DIR)/$(PKT_NAME).tar.gz -C $(STAGE_PATH); 		\
+		make patch_cmake;												\
+	fi
+	make build_pkt;
+
+
+build_pkt:
+	@echo "--------- task build --------------"
+	mkdir -p $(ROOTFS_DIR)
+	pushd $(STAGE_PATH)/build; make VERBOSE=0; make install; popd
+
+patch_cmake:
+	cp $(PWD_DIR)/$(TOOLCHAIN_FILE) $(STAGE_PATH)
+	cp -rf $(PWD_DIR)/patch/* $(STAGE_PATH)/$(PKT_NAME)
+	mkdir -p $(STAGE_PATH)/build
+	cd $(STAGE_PATH)/build && cmake -DCMAKE_TOOLCHAIN_FILE=../$(TOOLCHAIN_FILE) ../$(PKT_NAME)
+
+clean:
+	-rm -rf $(STAGE_PATH)

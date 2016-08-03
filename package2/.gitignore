@@ -1,0 +1,9 @@
+build_dir
+./ncurses
+./readline
+./lua
+json-c/Makefile
+ubus/Makefile
+libubox/Makefile
+uci/Makefile
+rootfs
