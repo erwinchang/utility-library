@@ -19,14 +19,14 @@ all:
 	@if [ ! -d $(PKT_DIR) ];then			   							\
 		tar -zxvf $(PWD_DIR)/$(PKT_NAME).tar.gz -C $(STAGE_PATH); 		\
 	fi
-	make build_json-c;
+	make build_pkt;
 
 
-build_json-c:
-	@echo "--------- task build ncurses --------------"
-	mkdir -p $(ROOTFS_DIR)
-	pushd $(STAGE_PATH)/$(PKT_NAME); ./configure CC=arm-hisiv200-linux-gcc --prefix=$(ROOTFS_DIR) --host=$(TARGETMACH); popd
-	pushd $(STAGE_PATH)/$(PKT_NAME); make; make install; popd
+build_pkt:
+	@echo "--------- task build --------------"
+	-mkdir -p $(ROOTFS_DIR)
+	pushd $(PKT_DIR); ./configure CC=arm-hisiv200-linux-gcc --prefix=$(ROOTFS_DIR) --host=$(TARGETMACH); popd
+	pushd $(PKT_DIR); make; make install; popd
 
 clean:
 	-rm -rf $(STAGE_PATH)

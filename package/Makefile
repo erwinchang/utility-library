@@ -12,7 +12,7 @@ export ROOTFS_DIR		:= $(PWD_DIR)/rootfs/rootfs-hiv100
 endif
 
 all:
-	@echo "make {ubuntu,hiv200}"
+	@echo "make {ubuntu,hiv200,hiv100}"
 
 ubuntu:
 	-mkdir -p $(ROOTFS_DIR)

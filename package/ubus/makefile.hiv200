@@ -5,6 +5,7 @@ PKT_DIR			:= $(STAGE_PATH)/$(PKT_NAME)
 
 TOOLCHAIN_FILE	:= cmake_install.hiv200
 
+#for install prefix
 export DESTDIR  := $(ROOTFS_DIR)
 
 all:
@@ -20,24 +21,19 @@ all:
 		tar -zxvf $(PWD_DIR)/$(PKT_NAME).tar.gz -C $(STAGE_PATH); 		\
 		make patch_cmake;												\
 	fi
-	make build_ubox;
+	make build_pkt;
 
 
-build_ubox:
+build_pkt:
 	@echo "--------- task build --------------"
 	mkdir -p $(ROOTFS_DIR)
-	pushd $(STAGE_PATH)/build; make VERBOSE=1; popd
-	pushd $(STAGE_PATH)/build; make install; popd
+	pushd $(STAGE_PATH)/build; make VERBOSE=1; make install; popd
 
 patch_cmake:
 	cp $(PWD_DIR)/$(TOOLCHAIN_FILE) $(STAGE_PATH)
-	echo "SET(CMAKE_FIND_ROOT_PATH $(ROOTFS_DIR))" >> $(STAGE_PATH)/$(TOOLCHAIN_FILE)
 	mkdir -p $(STAGE_PATH)/build
 	cp -rf $(PWD_DIR)/patch/* $(STAGE_PATH)/$(PKT_NAME)
 	cd $(STAGE_PATH)/build && cmake -DCMAKE_TOOLCHAIN_FILE=../$(TOOLCHAIN_FILE) ../$(PKT_NAME)
-
-patch_mk_fix:
-#
 
 clean:
 	-rm -rf $(STAGE_PATH)

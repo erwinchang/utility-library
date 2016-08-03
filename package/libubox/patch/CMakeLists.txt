@@ -3,7 +3,7 @@ INCLUDE(CheckLibraryExists)
 INCLUDE(CheckFunctionExists)
 
 PROJECT(ubox C)
-ADD_DEFINITIONS(-Os -Wall -Werror --std=gnu99 -g3 -Wmissing-declarations -I$(ROOTFS_DIR)/include -I$(ROOTFS_DIR)/include/lua5.1)
+ADD_DEFINITIONS(-Os -Wall -Werror --std=gnu99 -g3 -Wmissing-declarations -I$ENV{ROOTFS_DIR}/include -I$ENV{ROOTFS_DIR}/include/lua5.1)
 
 OPTION(BUILD_LUA "build Lua plugin" ON)
 

@@ -13,7 +13,6 @@ all:
 	@echo "= STAGE_PATH: $(STAGE_PATH)"
 	@echo "= tgz: $(PWD_DIR)/$(PKT_NAME).tar.gz"
 	@echo "= PKT_DIR: $(PKT_DIR)"
-	@echo "= CROSS_COMPILE:$(CROSS_COMPILE)"
 	@echo "==================================="
 	@echo ""
 	@if [ ! -d $(PKT_DIR) ];then			   							\

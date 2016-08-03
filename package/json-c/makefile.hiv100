@@ -3,7 +3,6 @@ PWD_DIR			:= $(shell pwd)
 STAGE_PATH		:= $(PWD_DIR)/build_dir
 PKT_DIR			:= $(STAGE_PATH)/$(PKT_NAME)
 
-export ARCH=arm
 export TARGETMACH=arm-hisiv100nptl-linux
 export ac_cv_func_malloc_0_nonnull=yes
 export ac_cv_func_realloc_0_nonnull=yes
@@ -15,20 +14,19 @@ all:
 	@echo "= STAGE_PATH: $(STAGE_PATH)"
 	@echo "= tgz: $(PWD_DIR)/$(PKT_NAME).tgz"
 	@echo "= PKT_DIR: $(PKT_DIR)"
-	@echo "= CROSS_COMPILE:$(CROSS_COMPILE)"
 	@echo "==================================="
 	@echo ""
 	@if [ ! -d $(PKT_DIR) ];then			   							\
 		tar -zxvf $(PWD_DIR)/$(PKT_NAME).tar.gz -C $(STAGE_PATH); 		\
 	fi
-	make build_json-c;
+	make build_pkt;
 
 
-build_json-c:
-	@echo "--------- task build udev --------------"
-	mkdir -p $(ROOTFS_DIR)
-	pushd $(STAGE_PATH)/$(PKT_NAME); ./configure CC=arm-hisiv100nptl-linux-gcc --prefix=$(ROOTFS_DIR) --host=$(TARGETMACH); popd
-	pushd $(STAGE_PATH)/$(PKT_NAME); make -j 6; make install; popd
+build_pkt:
+	@echo "--------- task build --------------"
+	-mkdir -p $(ROOTFS_DIR)
+	pushd $(PKT_DIR); ./configure CC=arm-hisiv100nptl-linux-gcc --prefix=$(ROOTFS_DIR) --host=$(TARGETMACH); popd
+	pushd $(PKT_DIR); make; make install; popd
 
 clean:
 	-rm -rf $(STAGE_PATH)

@@ -10,22 +10,20 @@ all:
 	@echo "= STAGE_PATH: $(STAGE_PATH)"
 	@echo "= tgz: $(PWD_DIR)/$(PKT_NAME).tar.gz"
 	@echo "= PKT_DIR: $(PKT_DIR)"
-	@echo "= CROSS_COMPILE:$(CROSS_COMPILE)"
 	@echo "==================================="
 	@echo ""
 	@if [ ! -d $(PKT_DIR) ];then			   							\
 		tar -zxvf $(PWD_DIR)/$(PKT_NAME).tar.gz -C $(STAGE_PATH); 		\
 		make patch_file;												\
 	fi
-	make build_readline;
+	make build_pkt;
 
 
-build_readline:
-	@echo "--------- task build udev --------------"
+build_pkt:
+	@echo "--------- task build pkt --------------"
 	mkdir -p $(ROOTFS_DIR)
-	cd $(STAGE_PATH)/$(PKT_NAME) && ./configure --prefix=$(ROOTFS_DIR) LDFLAGS=-L$(ROOTFS_DIR)/lib
-	make -C$(PKT_DIR) SHLIB_LIBS=-lncurses -j 6
-	make -C$(PKT_DIR) install
+	pushd $(PKT_DIR); ./configure --prefix=$(ROOTFS_DIR) LDFLAGS=-L$(ROOTFS_DIR)/lib; popd
+	pushd $(PKT_DIR); make SHLIB_LIBS=-lncurses; make install; popd
 
 patch_file:
 	cd $(STAGE_PATH)/$(PKT_NAME) && patch -p0 < ../../patch/readline62-001
