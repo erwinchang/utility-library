@@ -2,14 +2,26 @@
 
 ## ubuntu 
 
+- build docker:  erwinchang/ubuntu-12.04-32bit-build
+
 ```
 make ubuntu
 ```
 
 ## hiv200 (hisi glibc)
 
+- build docker: erwinchang/build-hiv200
+
 ```
 make hiv200
+```
+
+## hiv100 (hisi uclibc)
+
+- build docker: erwinchang/build-hiv100
+
+```
+make hiv100
 ```
 
 ## package source

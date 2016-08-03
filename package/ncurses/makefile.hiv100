@@ -4,12 +4,6 @@ STAGE_PATH		:= $(PWD_DIR)/build_dir
 PKT_DIR			:= $(STAGE_PATH)/$(PKT_NAME)
 
 export ARCH=arm
-export CC=$(CROSS_COMPILE)gcc
-export AR=$(CROSS_COMPILE)ar
-export AS=$(CROSS_COMPILE)as
-export CXX=$(CROSS_COMPILE)g++
-export CROSS=arm-hisiv100nptl-linux
-export ROOTFS_DIR=$(PWD_DIR)/../rootfs
 export TARGETMACH=arm-hisiv100nptl-linux
 
 all:
@@ -19,21 +13,19 @@ all:
 	@echo "= STAGE_PATH: $(STAGE_PATH)"
 	@echo "= tgz: $(PWD_DIR)/$(PKT_NAME).tgz"
 	@echo "= PKT_DIR: $(PKT_DIR)"
-	@echo "= CROSS_COMPILE:$(CROSS_COMPILE)"
 	@echo "==================================="
 	@echo ""
 	@if [ ! -d $(PKT_DIR) ];then			   							\
 		tar -zxvf $(PWD_DIR)/$(PKT_NAME).tar.gz -C $(STAGE_PATH); 		\
 	fi
-	make build_ncurses;
+	make build_pkt;
 
 
-build_ncurses:
-	@echo "--------- task build udev --------------"
+build_pkt:
+	@echo "--------- task build $(PKT_NAME) --------------"
 	mkdir -p $(ROOTFS_DIR)
-	cd $(STAGE_PATH)/$(PKT_NAME) && ./configure --prefix=$(ROOTFS_DIR) --host=$(TARGETMACH) --with-shared --without-debug --without-ada --enable-overwrite
-	make -C$(PKT_DIR) -j 6
-	make -C$(PKT_DIR) install
+	pushd $(PKT_DIR); ./configure --prefix=$(ROOTFS_DIR) --host=$(TARGETMACH) --with-shared --without-debug --without-ada --enable-overwrite; popd
+	pushd $(PKT_DIR); make; make install; popd
 
 clean:
 	-rm -rf $(STAGE_PATH)

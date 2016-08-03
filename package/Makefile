@@ -1,6 +1,15 @@
 
 PWD_DIR                 := $(shell pwd)
-export ROOTFS_DIR		:= $(PWD_DIR)/rootfs
+
+export ROOTFS_DIR 		:= $(PWD_DIR)/rootfs/rootfs-ubuntu
+
+ifeq ($(CROSS_COMPILE),arm-hisiv200-linux-)
+export ROOTFS_DIR 		:= $(PWD_DIR)/rootfs/rootfs-hiv200
+endif
+
+ifeq ($(CROSS_COMPILE),arm-hisiv100nptl-linux-)
+export ROOTFS_DIR		:= $(PWD_DIR)/rootfs/rootfs-hiv100
+endif
 
 all:
 	@echo "make {ubuntu,hiv200}"
@@ -41,8 +50,26 @@ hiv200:
 	make -Cuci
 	make -Cubus
 
+hiv100:
+	-mkdir -p $(ROOTFS_DIR)
+	-cp -f ncurses/makefile.hiv100 ncurses/Makefile
+	-cp -f readline/makefile.hiv100 readline/Makefile
+	-cp -f lua/makefile.hiv100 lua/Makefile
+	-cp -f libubox/makefile.hiv100 libubox/Makefile
+	-cp -f json-c/makefile.hiv100 json-c/Makefile
+	-cp -f uci/makefile.hiv100 uci/Makefile
+	-cp -f ubus/makefile.hiv100 ubus/Makefile
+	make -Cncurses
+	make -Creadline
+	make -Clua
+	make -Cjson-c
+#	for libubox create blob_msg library
+	make -Clibubox
+	make -Cuci
+	make -Cubus
+
 clean:
-	rm -rf $(ROOTFS_DIR)
+	rm -rf rootfs
 	[ -f ncurses/Makefile ] && make -Cncurses clean
 	[ -f readline/Makefile ] && make -Creadline clean
 	[ -f lua/Makefile ] && make -Clua clean
