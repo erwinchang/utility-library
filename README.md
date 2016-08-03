@@ -15,6 +15,63 @@
 - libubus
  OpenWrt system message/RPC bus 
 
+ ## Package Source
+
+list | OpenWrt (14.07) | OpenWrt(15.04) |
+:----|:---------------------------|:--------------------------|
+ncuress (5.9) | -- | -- |
+readline (6.2) | -- | -- |
+lua  |  [5.1.5][3] | 5.1.5 |
+json-c | json-c-0.11 | json-c-0.12 |
+libubox |  2014-08-04 | 2015-11-08 |
+uci |  uci-2014-04-11.1 | uci-2015-08-27.1 |
+ubus |  ubus-2014-09-17 | ubus-2015-05-25 |
+
+- json-c
+ - libjson-c.so   
+ 由 arraylist.c debug.c json_c_version.c json_object.c json_object_iterator.c json_tokener.c json_util.c linkhash.c printbuf.c 產生
+
+ - libjson.so  
+ 由 libjson.c 產生
+
+- libubox 產生下例檔案
+ - libubx.so
+ - libblobmsg_json.so
+ - jshn
+ - libjson_script.so
+ - for lua: uloop.so
+
+- ubus 產生下例檔案
+ -  libusbus.so
+ - bin: ubus, ubusd
+ - example: client, server
+
+# cross-commpileer package
+
+## ubuntu 
+
+- build docker:  erwinchang/ubuntu-12.04-32bit-build
+
+```
+make ubuntu
+```
+
+## hiv200 (hisi glibc)
+
+- build docker: erwinchang/build-hiv200
+
+```
+make hiv200
+```
+
+## hiv100 (hisi uclibc)
+
+- build docker: erwinchang/build-hiv100
+
+```
+make hiv100
+```
+
 ## [OpenWrt source repository downloads][2]
 
 - 15.05 branch (Chaos Calmer)
@@ -43,7 +100,7 @@ it config --global core.autocrlf false
 git config core.filemode false
 ```
 
-## OpenWrt  log
+## OpenWrt  Note
 
 - 15.04
 
@@ -92,3 +149,4 @@ Date:   Fri Jan 29 13:25:24 2016 +0000
 
 [1]:http://git.openwrt.org/?a=project_list;pf=project
 [2]:https://dev.openwrt.org/wiki/GetSource
+[3]:https://www.lua.org/ftp/lua-5.1.5.tar.gz
