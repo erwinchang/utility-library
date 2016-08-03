@@ -5,4 +5,5 @@ ncurses/Makefile
 lua/Makefile
 readline/Makefile
 libubox/Makefile
+uci/Makefile
 rootfs
