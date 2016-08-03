@@ -50,3 +50,10 @@ clean:
 	[ -f libubox/Makefile ] && make -Clibubox clean
 	[ -f ubus/Makefile ] && make -Cubus clean
 	[ -f uci/Makefile ] && make -Cuci clean
+	rm -f ncurses/Makefile
+	rm -f readline/Makefile
+	rm -f lua/Makefile
+	rm -f json-c/Makefile
+	rm -f libubox/Makefile
+	rm -f uci/Makefile
+	rm -f ubus/Makefile
