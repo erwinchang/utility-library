@@ -25,6 +25,7 @@ build_pkt:
 	@echo "--------- task build --------------"
 	-mkdir -p $(ROOTFS_DIR)
 	pushd $(PKT_DIR); ./configure --prefix=$(ROOTFS_DIR); popd
+	cp -rf $(PWD_DIR)/patch/* $(PKT_DIR)
 	pushd $(PKT_DIR); make; make install; popd
 
 clean:

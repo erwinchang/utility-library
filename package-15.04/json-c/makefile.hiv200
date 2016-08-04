@@ -26,6 +26,7 @@ build_pkt:
 	@echo "--------- task build --------------"
 	-mkdir -p $(ROOTFS_DIR)
 	pushd $(PKT_DIR); ./configure CC=arm-hisiv200-linux-gcc --prefix=$(ROOTFS_DIR) --host=$(TARGETMACH); popd
+	cp -rf $(PWD_DIR)/patch/* $(PKT_DIR)
 	pushd $(PKT_DIR); make; make install; popd
 
 clean:
