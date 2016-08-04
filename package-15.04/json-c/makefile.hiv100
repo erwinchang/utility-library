@@ -27,6 +27,7 @@ build_pkt:
 	-mkdir -p $(ROOTFS_DIR)
 	pushd $(PKT_DIR); ./configure CC=arm-hisiv100nptl-linux-gcc --prefix=$(ROOTFS_DIR) --host=$(TARGETMACH); popd
 	cp -rf $(PWD_DIR)/patch/* $(PKT_DIR)
+	cp -rf $(PWD_DIR)/patch-hiv100/* $(PKT_DIR)
 	pushd $(PKT_DIR); make; make install; popd
 
 clean:
