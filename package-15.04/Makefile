@@ -11,9 +11,9 @@ ifeq ($(CROSS_COMPILE),arm-hisiv100nptl-linux-)
 export ROOTFS_DIR		:= $(PWD_DIR)/rootfs/rootfs-hiv100
 endif
 
-[ ! -d ncurses ] && cp -rf ../package/ncurses  .
-[ ! -d readline ] && cp -rf ../package/readline .
-[ ! -d lua ] && cp -rf ../package/lua .
+[ ! -d ncurses ] && cp -rf ../package-14.07/ncurses  .
+[ ! -d readline ] && cp -rf ../package-14.07/readline .
+[ ! -d lua ] && cp -rf ../package-14.07/lua .
 
 all:
 	@echo "make {ubuntu,hiv200,hiv100}"
