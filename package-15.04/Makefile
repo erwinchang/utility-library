@@ -23,6 +23,7 @@ ubuntu:
 hiv200:
 	-mkdir -p $(ROOTFS_DIR)
 	make check TYPE=hiv200
+	make build
 
 hiv100:
 	-mkdir -p $(ROOTFS_DIR)
