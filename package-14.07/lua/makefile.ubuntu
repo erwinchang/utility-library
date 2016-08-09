@@ -22,7 +22,7 @@ all:
 build_pkt:
 	@echo "--------- task build --------------"
 	-mkdir -p $(ROOTFS_DIR)
-	pushd $(PKT_DIR); make linux CFLAGS="-fPIC -I$(ROOTFS_DIR)/include -L$(ROOTFS_DIR)/lib"; popd
+	pushd $(PKT_DIR); make linux CFLAGS="-DLUA_USE_LINUX -fPIC -I$(ROOTFS_DIR)/include -L$(ROOTFS_DIR)/lib"; popd
 	pushd $(PKT_DIR); make install INSTALL_TOP=$(ROOTFS_DIR); popd
 
 patch_file:

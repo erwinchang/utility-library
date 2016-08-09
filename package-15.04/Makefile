@@ -31,17 +31,11 @@ hiv100:
 	make build
 
 clean:
-	rm -rf rootfs
-	[ -f ncurses/Makefile ] && make -Cncurses clean
-	[ -f readline/Makefile ] && make -Creadline clean
-	[ -f lua/Makefile ] && make -Clua clean
-	[ -f json-c/Makefile ] && make -Cjson-c clean
-	[ -f libubox/Makefile ] && make -Clibubox clean
-	[ -f ubus/Makefile ] && make -Cubus clean
-	[ -f uci/Makefile ] && make -Cuci clean
-	rm -f ncurses/Makefile
-	rm -f readline/Makefile
-	rm -f lua/Makefile
+	rm -rf rootfs ncurses readline lua
+	@if [ -f json-c/Makefile ]; then make -Cjson-c clean; fi
+	@if [ -f libubox/Makefile ]; then make -Clibubox clean; fi
+	@if [ -f ubus/Makefile ]; then make -Cubus clean; fi
+	@if [ -f uci/Makefile ]; then make -Cuci clean; fi
 	rm -f json-c/Makefile
 	rm -f libubox/Makefile
 	rm -f uci/Makefile
