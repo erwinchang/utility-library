@@ -43,8 +43,8 @@ LuaSocket is a Lua extension library that is composed by two parts: a C core tha
 
 - 參考來源
 
-- [github luasocket][1]
-- [LuaSocket 初探][2]
+ - [github luasocket][1]
+ - [LuaSocket 初探][2]
 
 [1]:https://github.com/diegonehab/luasocket
 [2]:https://www.photoneray.com/luasocket/
