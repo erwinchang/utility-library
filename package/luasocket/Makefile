@@ -1,0 +1,29 @@
+PKT_NAME		:= luasocket-3.0-rc1
+PWD_DIR			:= $(shell pwd)
+STAGE_PATH		:= $(PWD_DIR)/build_dir
+PKT_DIR			:= $(STAGE_PATH)/$(PKT_NAME)
+
+all:
+	-mkdir -p $(STAGE_PATH)
+	-mkdir -p $(ROOTFS_DIR)
+	@echo ""
+	@echo "=================================="
+	@echo "= STAGE_PATH: $(STAGE_PATH)"
+	@echo "= tgz: $(PWD_DIR)/$(PKT_NAME).tar.gz"
+	@echo "= PKT_DIR: $(PKT_DIR)"
+	@echo "==================================="
+	@echo ""
+	@if [ ! -d $(PKT_DIR) ];then			   							\
+		tar -zxvf $(PWD_DIR)/$(PKT_NAME).tar.gz -C $(STAGE_PATH); 		\
+		cp -rf $(PWD_DIR)/$(PKT_NAME) $(STAGE_PATH);					\
+	fi
+	make build_pkt;
+
+build_pkt:
+	@echo "--------- task build pkt --------------"
+	-mkdir -p $(ROOTFS_DIR)
+	pushd $(PKT_DIR); make PLAT=linux CC=arm-hisiv200-linux-gcc AR="arm-hisiv200-linux-ar rcu" RANLIB=arm-hisiv200-linux-ranlib DEBUG=DEBUG LUAINC_linux_base=$(DK_MOUNT_PATH)/workspace/commom-library-hiv200/include LUAPREFIX_linux=$(ROOTFS_DIR); popd
+	pushd $(PKT_DIR); make install INSTALL_TOP=$(ROOTFS_DIR); popd
+
+clean:
+	-rm -rf $(STAGE_PATH)
