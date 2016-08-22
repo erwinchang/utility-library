@@ -11,9 +11,21 @@ ifeq ($(CROSS_COMPILE),arm-hisiv100nptl-linux-)
 export ROOTFS_DIR		:= $(PWD_DIR)/rootfs/rootfs-hiv100
 endif
 
+export UNAME_M			:= `uname -m`
+ifneq (,$(wildcard /etc/fedora-release))
+export OS_Fedora		:= true
+export ROOTFS_DIR		:= $(PWD_DIR)/rootfs/rootfs-fedora
+endif
+
 
 all:
-	@echo "make {ubuntu,hiv200,hiv100}"
+	@echo "make {ubuntu,hiv200,hiv100,fedora}"
+	@echo "ROOTFS_DIR:$(ROOTFS_DIR)"
+
+fedora:
+	-mkdir -p $(ROOTFS_DIR)
+	make check TYPE=fedora
+	make build
 
 ubuntu:
 	-mkdir -p $(ROOTFS_DIR)
