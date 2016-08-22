@@ -2,7 +2,6 @@ PKT_NAME		:= ncurses-5.9
 PWD_DIR			:= $(shell pwd)
 STAGE_PATH		:= $(PWD_DIR)/build_dir
 PKT_DIR			:= $(STAGE_PATH)/$(PKT_NAME)
-export DESTDIR  := $(ROOTFS_DIR)
 
 all:
 	-mkdir -p $(STAGE_PATH)
