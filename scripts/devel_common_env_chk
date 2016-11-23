@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#-----------------------------
+# devel_common_env_ck
+#-----------------------------
+
+#device environment
+export GIT_BUILD_DIR="$GIT_TOP_DIR/build-dir/$GIT_TARGET_ARCH/$FUHO_PT/$FUHO_PT_VER"
+export GIT_RELEASE_DIR="$GIT_TOP_DIR/release-dir/$GIT_TARGET_ARCH/$FUHO_PT/$FUHO_PT_VER"
+

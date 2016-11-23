@@ -1,0 +1,78 @@
+git config --global core.autocrlf false
+git config core.filemode false
+
+
+download_hisi(){
+    [ ! -f hisi-linux-nptl.tgz ] && {
+        curl -c /tmp/cookies "https://drive.google.com/uc?export=download&id=0ByYIdZcmx_I8ZU94bWNSMXRiakE" > /tmp/intermezzo.html
+        curl -L -b /tmp/cookies "https://drive.google.com$(cat /tmp/intermezzo.html | grep -Po 'uc-download-link" [^>]* href="\K[^"]*' | sed 's/\&amp;/\&/g')" > hisi-linux-nptl.tgz
+    }
+    echo "4213351a92eb247f8bb59540882cd11c  hisi-linux-nptl.tgz" > hisi-linux-nptl.tgz.md5
+}
+
+download_hisi_qt(){
+    [ ! -f Qt4.8.6-hisiv100.tgz ]  && curl -L -b /tmp/cookies "https://drive.google.com/uc?export=download&confirm=IMZq&id=0ByYIdZcmx_I8SzZRMEJMaGRVUVk" > Qt4.8.6-hisiv100.tgz
+    echo "d61430c010cb76c9782155ffaa07a143  Qt4.8.6-hisiv100.tgz" > Qt4.8.6-hisiv100.tgz.md5
+}
+
+chk=$(which arm-hisiv100nptl-linux-gcc)
+if [ "x$chk" == "x" ]; then
+#install toolchain
+    [ ! -d /opt/hisi-linux-nptl/arm-hisiv100-linux/target/bin ] && {
+        echo "download arm-hisiv100-linux toolchan.."
+        [ ! -f hisi-linux-nptl.tgz ] && download_hisi
+        [ ! -f hisi-linux-nptl.tgz ] && {
+            echo "download file fail"
+            exit 1
+        }
+
+        chk=$(md5sum -c hisi-linux-nptl.tgz.md5 | grep OK)
+        [ "x$chk" == "x" ] && {
+            echo "hisi-linux-nptl.tgz md5 check fail"
+            exit 1
+        }
+
+        sudo tar -zxvf hisi-linux-nptl.tgz -C /opt
+        [ $? != 0 ] && {
+            echo "install hisi-linux-nptl.tgz fail"
+            exit 1
+        }
+        rm hisi-linux-nptl.tgz
+        rm hisi-linux-nptl.tgz.md5
+    }
+    export PATH="$PATH:/opt/hisi-linux-nptl/arm-hisiv100-linux/target/bin"
+fi
+
+#check qt library
+check_qt_library(){
+    if [ ! -d  /usr/local/Trolltech/Qt4.8.6-hisiv100 ]; then
+        echo "download Qt4.8.6-hisiv100.tgz"
+        [ ! -f Qt4.8.6-hisiv100.tgz ] && download_hisi_qt
+        [ ! -f Qt4.8.6-hisiv100.tgz ] && {
+            echo "download file fail"
+            exit 1
+        }
+
+        chk=$(md5sum -c Qt4.8.6-hisiv100.tgz.md5 | grep OK)
+        [ "x$chk" == "x" ] && {
+            echo "Qt4.8.6-hisiv100.tgz md5 check fail"
+        }
+
+        sudo mkdir -p /usr/local/Trolltech
+        sudo tar -zxvf Qt4.8.6-hisiv100.tgz -C /usr/local/Trolltech
+        [ $? != 0 ] && {
+            echo "install Qt4.8.6-hisiv100.tgz fail"
+            exit 1
+        }
+        rm Qt4.8.6-hisiv100.tgz
+        rm Qt4.8.6-hisiv100.tgz.md5
+    fi
+}
+
+export CROSS_COMPILE=arm-hisiv100nptl-linux-
+
+export GIT_TARGET_ARCH=hiv100
+export GIT_TOP_DIR=$PWD
+
+chmod +x $GIT_TOP_DIR/scripts/get_appver.sh
+source scripts/default_bashrc

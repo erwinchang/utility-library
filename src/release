@@ -1,0 +1,10 @@
+
+config app 'app'
+    option major_num    '1'
+    option minor_num    '0'
+    option mat_num      '0'
+
+# major release number: uboot update/ major update/ new features
+# minor release number: small update/ new feature
+# maintenance release number: bug fixes/ small updates
+

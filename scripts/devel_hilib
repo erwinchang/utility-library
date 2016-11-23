@@ -1,0 +1,12 @@
+#!/bin/bash
+
+source $GIT_TOP_DIR/scripts/devel_common_env
+# ------------------------------------------
+# device environment
+# ------------------------------------------
+export FUHO_PRODUCT_TYPE="HILIB"
+export FUHO_PT="hilib"
+
+source $GIT_TOP_DIR/scripts/devel_common_env_chk
+source $GIT_TOP_DIR/scripts/devel_common_alias
+

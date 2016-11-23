@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#-----------------------------
+# devel_common_env
+#-----------------------------
+
+#device environment
+export FUHO_PRODUCT_TYPE="NULL"
+export FUHO_PT="NULL"
+export FUHO_PT_VER=`$GIT_TOP_DIR/scripts/get_appver.sh`
