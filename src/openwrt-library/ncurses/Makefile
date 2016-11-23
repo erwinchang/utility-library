@@ -6,12 +6,19 @@ PKT_DIR			:= $(STAGE_PATH)/$(PKT_NAME)
 export ARCH			:= arm
 export ROOTFS_DIR   := $(GIT_RELEASE_DIR)/rootfs-$(GIT_TARGET_ARCH)
 
+export TARGETMACH   := arm-hisiv100nptl-linux
+export CROSS 		:= arm-hisiv100nptl-linux
+export CC			:= $(CROSS)-gcc
+export LD			:= $(CROSS)-ld
+export AS			:= $(CROSS)-as
+export CXX			:= $(CROSS)-g++
+
 all:
 	-mkdir -p $(STAGE_PATH)
 	@echo ""
 	@echo "=================================="
 	@echo "= STAGE_PATH: $(STAGE_PATH)"
-	@echo "= tgz: $(PWD_DIR)/$(PKT_NAME).tgz"
+	@echo "= tgz: $(PKT_NAME).tgz"
 	@echo "= PKT_DIR: $(PKT_DIR)"
 	@echo "==================================="
 	@echo ""
@@ -24,7 +31,7 @@ all:
 build_pkt:
 	@echo "--------- task build pkt --------------"
 	mkdir -p $(ROOTFS_DIR)
-	pushd $(STAGE_PATH)/$(PKT_NAME); ./configure --prefix=$(ROOTFS_DIR) --with-shared --without-debug --without-ada --enable-overwrite; popd
+	pushd $(STAGE_PATH)/$(PKT_NAME); ./configure --host=$(TARGETMACH) --prefix=$(ROOTFS_DIR) --with-shared --without-debug --without-ada --enable-overwrite; popd
 	pushd $(PKT_DIR); make; popd
 
 install:

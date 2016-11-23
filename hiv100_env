@@ -69,8 +69,6 @@ check_qt_library(){
     fi
 }
 
-export CROSS_COMPILE=arm-hisiv100nptl-linux-
-
 export GIT_TARGET_ARCH=hiv100
 export GIT_TOP_DIR=$PWD
 
