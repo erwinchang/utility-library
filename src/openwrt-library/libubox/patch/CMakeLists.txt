@@ -3,7 +3,7 @@ INCLUDE(CheckLibraryExists)
 INCLUDE(CheckFunctionExists)
 
 PROJECT(ubox C)
-ADD_DEFINITIONS(-Os -Wall -Werror --std=gnu99 -g3 -Wmissing-declarations)
+ADD_DEFINITIONS(-Os -Wall -Werror --std=gnu99 -g3 -Wmissing-declarations -I$ENV{ROOTFS_DIR}/include -I$ENV{ROOTFS_DIR}/include/lua5.1)
 
 OPTION(BUILD_LUA "build Lua plugin" ON)
 OPTION(BUILD_EXAMPLES "build examples" ON)
@@ -52,7 +52,7 @@ IF(EXISTS ${json})
 			      PROPERTIES OUTPUT_NAME blobmsg_json)
 
 	ADD_EXECUTABLE(jshn jshn.c)
-	TARGET_LINK_LIBRARIES(jshn blobmsg_json ${json})
+	TARGET_LINK_LIBRARIES(jshn blobmsg_json ${json} m)
 
 	ADD_LIBRARY(json_script SHARED json_script.c)
 	TARGET_LINK_LIBRARIES(json_script ubox)

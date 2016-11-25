@@ -10,7 +10,7 @@ IF (BUILD_EXAMPLES)
     FIND_LIBRARY(json NAMES json-c json)
 
     ADD_EXECUTABLE(blobmsg-example blobmsg-example.c)
-    TARGET_LINK_LIBRARIES(blobmsg-example ubox blobmsg_json  ${json})
+    TARGET_LINK_LIBRARIES(blobmsg-example ubox blobmsg_json  ${json} m)
 
     ADD_EXECUTABLE(ustream-example ustream-example.c)
     TARGET_LINK_LIBRARIES(ustream-example ubox)
@@ -19,5 +19,5 @@ IF (BUILD_EXAMPLES)
     TARGET_LINK_LIBRARIES(runqueue-example ubox)
 
     ADD_EXECUTABLE(json_script-example json_script-example.c)
-    TARGET_LINK_LIBRARIES(json_script-example ubox blobmsg_json json_script ${json})
+    TARGET_LINK_LIBRARIES(json_script-example ubox blobmsg_json json_script ${json} m)
 ENDIF()

@@ -31,7 +31,7 @@ build_pkt:
 	@echo "--------- task build --------------"
 	-mkdir -p $(ROOTFS_DIR)
 	pushd $(PKT_DIR); ./configure CC=$(CC) --prefix=$(ROOTFS_DIR) --host=$(TARGETMACH); popd
-#	cp -rf $(PWD_DIR)/patch/* $(PKT_DIR)
+	cp -rf $(GIT_TOP_DIR)/src/openwrt-library/backup/package-15.04/json-c/patch/* $(PKT_DIR)
 	pushd $(PKT_DIR); make; popd
 
 install:
