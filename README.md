@@ -1,78 +1,26 @@
 # Utility Library
 
-## openwrt utilities
+## list
 
-- [openwrt project package list ][1]
-
-目前使用到的共用library
-
-- libubox
- C utility functions for OpenWrt
-
-- uci
- OpenWrt Unified Configuration Interface
-
-- libubus
- OpenWrt system message/RPC bus 
-
-## Package Source
-
-list | OpenWrt (14.07) | OpenWrt(15.04) |
-:----|:---------------------------|:--------------------------|
-ncuress (5.9) | -- | -- |
-readline (6.2) | -- | -- |
-lua  |  [5.1.5][3] | 5.1.5 |
-json-c | json-c-0.11 | json-c-0.12 |
-libubox |  2014-08-04 | 2015-11-08 |
-uci |  uci-2014-04-11.1 | uci-2015-08-27.1 |
-ubus |  ubus-2014-09-17 | ubus-2015-05-25 |
-
-- json-c
- - libjson-c.so   
- 由 arraylist.c debug.c json_c_version.c json_object.c json_object_iterator.c json_tokener.c json_util.c linkhash.c printbuf.c 產生
-
- - libjson.so  
- 由 libjson.c 產生
-
-- libubox 產生下例檔案
- - libubx.so
- - libblobmsg_json.so
- - jshn
- - libjson_script.so
- - for lua: uloop.so
-
-- ubus 產生下例檔案
- -  libusbus.so
- - bin: ubus, ubusd
- - example: client, server
+- src
+ - library
+ simclist
+ 
+ - openwrt-library
 
 ## cross-commpileer package
 
-### ubuntu 
+### hiv100 build 
 
 - build docker:  erwinchang/ubuntu-12.04-32bit-build
 
 ```
-make ubuntu
+source hiv100_env
+cd src/openwrt-library
+make
 ```
 
-### hiv200 (hisi glibc)
-
-- build docker: erwinchang/build-hiv200
-
-```
-make hiv200
-```
-
-### hiv100 (hisi uclibc)
-
-- build docker: erwinchang/build-hiv100
-
-```
-make hiv100
-```
-
-## [OpenWrt source repository downloads][2]
+### [OpenWrt source repository downloads][2]
 
 - 15.05 branch (Chaos Calmer)
 
@@ -132,6 +80,52 @@ Date:   Fri Jan 29 13:25:24 2016 +0000
     
     git-svn-id: svn://svn.openwrt.org/openwrt/branches/barrier_breaker@48549 3c298f89-4303-0410-b956-a3cf2f4a3e73
 ```
+
+### openwrt-library
+
+- [openwrt project package list ][1]
+
+目前使用到的共用library
+
+- libubox
+ C utility functions for OpenWrt
+
+- uci
+ OpenWrt Unified Configuration Interface
+
+- libubus
+ OpenWrt system message/RPC bus 
+
+## Package Source
+
+list | OpenWrt (14.07) | OpenWrt(15.04) |
+:----|:---------------------------|:--------------------------|
+ncuress (5.9) | -- | -- |
+readline (6.2) | -- | -- |
+lua  |  [5.1.5][3] | 5.1.5 |
+json-c | json-c-0.11 | json-c-0.12 |
+libubox |  2014-08-04 | 2015-11-08 |
+uci |  uci-2014-04-11.1 | uci-2015-08-27.1 |
+ubus |  ubus-2014-09-17 | ubus-2015-05-25 |
+
+- json-c
+ - libjson-c.so   
+ 由 arraylist.c debug.c json_c_version.c json_object.c json_object_iterator.c json_tokener.c json_util.c linkhash.c printbuf.c 產生
+
+ - libjson.so  
+ 由 libjson.c 產生
+
+- libubox 產生下例檔案
+ - libubx.so
+ - libblobmsg_json.so
+ - jshn
+ - libjson_script.so
+ - for lua: uloop.so
+
+- ubus 產生下例檔案
+ -  libusbus.so
+ - bin: ubus, ubusd
+ - example: client, server
 
 ## Git 設定
 
