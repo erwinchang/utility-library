@@ -1,17 +1,16 @@
 git config --global core.autocrlf false
 git config core.filemode false
-export GIT_TARGET_ARCH=hiv100
+
+export GIT_TARGET_ARCH=hiv300
 export GIT_TOP_DIR=$PWD
 chmod +x $GIT_TOP_DIR/scripts/*.sh
 
-
-chk=$(which arm-hisiv100nptl-linux-gcc)
+chk=$(which arm-hisiv300-linux-gcc)
 if [ "x$chk" == "x" ]; then
-#install toolchain
-    . scripts/chk_hiv100.sh
-    export PATH="$PATH:/opt/hisi-linux-nptl/arm-hisiv100-linux/target/bin"
+    #install toolchain
+    . scripts/chk_hiv300.sh
+    export PATH="$PATH:/opt/hisi-linux/x86-arm/arm-hisiv300-linux/target/bin"
 fi
-
 
 chmod +x $GIT_TOP_DIR/scripts/get_appver.sh
 source scripts/default_bashrc
