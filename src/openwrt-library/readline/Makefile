@@ -6,8 +6,16 @@ PKT_DIR			:= $(STAGE_PATH)/$(PKT_NAME)
 export ARCH			:= arm
 export ROOTFS_DIR   := $(GIT_RELEASE_DIR)/rootfs-$(GIT_TARGET_ARCH)
 
-export TARGETMACH 	:= arm-hisiv100nptl-linux
-export CROSS		:= arm-hisiv100nptl-linux
+ifeq (hiv100,$(GIT_TARGET_ARCH))
+export CROSS 		:= arm-hisiv100nptl-linux
+endif
+
+ifeq (hiv300,$(GIT_TARGET_ARCH))
+export CROSS 		:= arm-hisiv300-linux
+endif
+
+
+export TARGETMACH 	:= ${CROSS}
 export CC			:= ${CROSS}-gcc
 export LD			:= ${CROSS}-ld
 export AS			:= ${CROSS}-as

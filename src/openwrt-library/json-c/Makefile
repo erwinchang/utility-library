@@ -3,13 +3,20 @@ PWD_DIR			:= $(shell pwd)
 STAGE_PATH		:= $(PWD_DIR)/build_dir
 PKT_DIR			:= $(STAGE_PATH)/$(PKT_NAME)
 
-#export ARCH			:= arm
 export ROOTFS_DIR   := $(GIT_RELEASE_DIR)/rootfs-$(GIT_TARGET_ARCH)
+
+ifeq (hiv100,$(GIT_TARGET_ARCH))
+export CROSS 		:= arm-hisiv100nptl-linux
+endif
+
+ifeq (hiv300,$(GIT_TARGET_ARCH))
+export CROSS 		:= arm-hisiv300-linux
+endif
+
 export ac_cv_func_malloc_0_nonnull=yes
 export ac_cv_func_realloc_0_nonnull=yes
 
-export TARGETMACH	:= arm-hisiv100nptl-linux
-export CROSS		:= arm-hisiv100nptl-linux
+export TARGETMACH	:= $(CROSS)
 export CC  			:= $(CROSS)-gcc
 
 all:
