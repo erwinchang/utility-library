@@ -8,10 +8,12 @@ export ROOTFS_DIR   := $(GIT_RELEASE_DIR)/rootfs-$(GIT_TARGET_ARCH)
 
 ifeq (hiv100,$(GIT_TARGET_ARCH))
 export CROSS 		:= arm-hisiv100nptl-linux
+SFLAG				:= -march=armv7-a -mcpu=cortex-a9
 endif
 
 ifeq (hiv300,$(GIT_TARGET_ARCH))
 export CROSS 		:= arm-hisiv300-linux
+SFLAG				:= -march=armv7-a -mfloat-abi=softfp -mfpu=neon-vfpv4 -mno-unaligned-access -fno-aggressive-loop-optimizations
 endif
 
 
@@ -41,7 +43,7 @@ all:
 build_pkt:
 	@echo "--------- task build $(PKT_NAME) --------------"
 	mkdir -p $(ROOTFS_DIR)
-	pushd $(PKT_DIR); ./configure --prefix=$(ROOTFS_DIR) --host=$(TARGETMACH) LDFLAGS=-L$(ROOTFS_DIR)/lib; popd
+	pushd $(PKT_DIR); ./configure CFLAGS='$(SFLAG)' CPPFLAGS='$(SFLAG)' --prefix=$(ROOTFS_DIR) --host=$(TARGETMACH) LDFLAGS=-L$(ROOTFS_DIR)/lib; popd
 	pushd $(PKT_DIR); make SHLIB_LIBS=-lncurses; popd
 
 install:

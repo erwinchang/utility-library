@@ -7,10 +7,12 @@ export ROOTFS_DIR   := $(GIT_RELEASE_DIR)/rootfs-$(GIT_TARGET_ARCH)
 
 ifeq (hiv100,$(GIT_TARGET_ARCH))
 export CROSS 		:= arm-hisiv100nptl-linux
+SFLAG				:= -march=armv7-a -mcpu=cortex-a9
 endif
 
 ifeq (hiv300,$(GIT_TARGET_ARCH))
 export CROSS 		:= arm-hisiv300-linux
+SFLAG				:= -march=armv7-a -mfloat-abi=softfp -mfpu=neon-vfpv4 -mno-unaligned-access -fno-aggressive-loop-optimizations
 endif
 
 export ac_cv_func_malloc_0_nonnull=yes
@@ -37,7 +39,7 @@ all:
 build_pkt:
 	@echo "--------- task build --------------"
 	-mkdir -p $(ROOTFS_DIR)
-	pushd $(PKT_DIR); ./configure CC=$(CC) --prefix=$(ROOTFS_DIR) --host=$(TARGETMACH); popd
+	pushd $(PKT_DIR); ./configure CC=$(CC) CFLAGS='$(SFLAG)' CPPFLAGS='$(SFLAG)' --prefix=$(ROOTFS_DIR) --host=$(TARGETMACH); popd
 	cp -rf $(GIT_TOP_DIR)/src/openwrt-library/backup/package-15.04/json-c/patch/* $(PKT_DIR)
 	pushd $(PKT_DIR); make; popd
 

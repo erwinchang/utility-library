@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 
 PROJECT(ubus C)
-ADD_DEFINITIONS(-Os -Wall -Werror --std=gnu99 -g3 -Wmissing-declarations -I$ENV{ROOTFS_DIR}/usr/local/include -I$ENV{ROOTFS_DIR}/include)
+ADD_DEFINITIONS($ENV{SFLAG} -Os -Wall -Werror --std=gnu99 -g3 -Wmissing-declarations -I$ENV{ROOTFS_DIR}/usr/local/include -I$ENV{ROOTFS_DIR}/include)
 
 OPTION(BUILD_LUA "build Lua plugin" ON)
 OPTION(BUILD_EXAMPLES "build examples" ON)

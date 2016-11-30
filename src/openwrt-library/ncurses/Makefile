@@ -9,10 +9,12 @@ export ROOTFS_DIR   := $(GIT_RELEASE_DIR)/rootfs-$(GIT_TARGET_ARCH)
 
 ifeq (hiv100,$(GIT_TARGET_ARCH))
 export CROSS 		:= arm-hisiv100nptl-linux
+SFLAG				:= -march=armv7-a -mcpu=cortex-a9
 endif
 
 ifeq (hiv300,$(GIT_TARGET_ARCH))
 export CROSS 		:= arm-hisiv300-linux
+SFLAG 				:= -march=armv7-a -mfloat-abi=softfp -mfpu=neon-vfpv4 -mno-unaligned-access -fno-aggressive-loop-optimizations
 endif
 
 export TARGETMACH   := $(CROSS)
@@ -39,7 +41,7 @@ all:
 build_pkt:
 	@echo "--------- task build pkt --------------"
 	mkdir -p $(ROOTFS_DIR)
-	pushd $(STAGE_PATH)/$(PKT_NAME); ./configure --host=$(TARGETMACH) --prefix=$(ROOTFS_DIR) --with-shared --without-debug --without-ada --enable-overwrite; popd
+	pushd $(STAGE_PATH)/$(PKT_NAME); ./configure CFLAGS='$(SFLAG)' CPPFLAGS='$(SFLAG)' --host=$(TARGETMACH) --prefix=$(ROOTFS_DIR) --with-shared --without-debug --without-ada --enable-overwrite; popd
 	pushd $(PKT_DIR); make; popd
 
 install:

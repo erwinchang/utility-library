@@ -8,10 +8,12 @@ export ROOTFS_DIR   := $(GIT_RELEASE_DIR)/rootfs-$(GIT_TARGET_ARCH)
 
 ifeq (hiv100,$(GIT_TARGET_ARCH))
 export CROSS 		:= arm-hisiv100nptl-linux
+SFLAG				:= -march=armv7-a -mcpu=cortex-a9
 endif
 
 ifeq (hiv300,$(GIT_TARGET_ARCH))
 export CROSS 		:= arm-hisiv300-linux
+SFLAG				:= -march=armv7-a -mfloat-abi=softfp -mfpu=neon-vfpv4 -mno-unaligned-access -fno-aggressive-loop-optimizations
 endif
 
 export CC		:= $(CROSS)-gcc
@@ -38,7 +40,7 @@ all:
 build_pkt:
 	@echo "--------- task build pkt --------------"
 	-mkdir -p $(ROOTFS_DIR)
-	pushd $(PKT_DIR); make linux CC=$(CC) AR=$(AR) RANLIB=$(RANLINB) CFLAGS="-DLUA_USE_LINUX -I$(ROOTFS_DIR)/include -L$(ROOTFS_DIR)/lib"; popd
+	pushd $(PKT_DIR); make linux CC=$(CC) AR=$(AR) RANLIB=$(RANLINB) CFLAGS='$(SFLAG) -fPIC -DLUA_USE_LINUX -I$(ROOTFS_DIR)/include -L$(ROOTFS_DIR)/lib'; popd
 
 install:
 	pushd $(PKT_DIR); make install INSTALL_TOP=$(ROOTFS_DIR); popd

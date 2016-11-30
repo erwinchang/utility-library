@@ -6,6 +6,13 @@ PKT_DIR			:= $(STAGE_PATH)/$(PKT_NAME)
 TOOLCHAIN_FILE	:= cmake_install.$(GIT_TARGET_ARCH)
 export ROOTFS_DIR 	:= $(GIT_RELEASE_DIR)/rootfs-$(GIT_TARGET_ARCH)
 
+ifeq (hiv100,$(GIT_TARGET_ARCH))
+export SFLAG				:= -march=armv7-a -mcpu=cortex-a9
+endif
+ifeq (hiv300,$(GIT_TARGET_ARCH))
+export SFLAG				:= -march=armv7-a -mfloat-abi=softfp -mfpu=neon-vfpv4 -mno-unaligned-access -fno-aggressive-loop-optimizations
+endif
+
 all:
 	-mkdir -p $(STAGE_PATH)
 	@echo ""

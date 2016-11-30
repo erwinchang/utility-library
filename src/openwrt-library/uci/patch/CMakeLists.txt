@@ -4,7 +4,7 @@ PROJECT(uci C)
 
 SET(CMAKE_INSTALL_PREFIX $ENV{ROOTFS_DIR})
 SET(CMAKE_SHARED_LIBRARY_LINK_C_FLAGS "")
-ADD_DEFINITIONS(-Os -Wall -Werror --std=gnu99 -g3 -I. -DUCI_PREFIX="${CMAKE_INSTALL_PREFIX}" -I$ENV{ROOTFS_DIR}/usr/local/include -I$ENV{ROOTFS_DIR}/include)
+ADD_DEFINITIONS($ENV{SFLAG} -Os -Wall -Werror --std=gnu99 -g3 -I. -DUCI_PREFIX="${CMAKE_INSTALL_PREFIX}" -I$ENV{ROOTFS_DIR}/usr/local/include -I$ENV{ROOTFS_DIR}/include)
 
 OPTION(UCI_DEBUG "debugging support" OFF)
 OPTION(UCI_DEBUG_TYPECAST "typecast debugging support" OFF)
