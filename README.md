@@ -39,7 +39,7 @@ make
 ```
 
 ## hiv300 build 
-建入docker後，souce hiv100_env即可
+建入docker後，souce hiv300_env即可
 ```
 source hiv300_env
 cd openwrt-library
