@@ -10,13 +10,41 @@
 
 ## cross-commpileer package
 
-### hiv100 build 
+### 如何建立build code的環境
 
-- build docker:  erwinchang/ubuntu-12.04-32bit-build
+- 安裝docker
+請參考:[Install Docker on Ubuntu][4]
+```
+$ docker -v
+Docker version 1.12.1, build 23cf638
+```
 
+- 下載執行環境
+```
+git clone git@github.com:erwinchang/docker.git
+```
+
+- 開啟docker
+使用docker image(erwinchang/ubuntu-12.04-32bit-build)
+```
+git clone git@github.com:erwinchang/docker.git
+cd docker/build-env/build
+./run.sh
+```
+
+## hiv100 build 
+開啟docker(docker/build-env/build/run.sh)
 ```
 source hiv100_env
-cd src/openwrt-library
+cd openwrt-library
+make
+```
+
+## hiv300 build 
+開啟docker(docker/build-env/build/run.sh)
+```
+source hiv300_env
+cd openwrt-library
 make
 ```
 
@@ -144,3 +172,4 @@ git config core.filemode false
 [1]:http://git.openwrt.org/?a=project_list;pf=project
 [2]:https://dev.openwrt.org/wiki/GetSource
 [3]:https://www.lua.org/ftp/lua-5.1.5.tar.gz
+[4]:https://docs.docker.com/engine/installation/linux/ubuntulinux/
