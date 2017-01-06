@@ -24,16 +24,14 @@ Docker version 1.12.1, build 23cf638
 git clone git@github.com:erwinchang/docker.git
 ```
 
-- 開啟docker
-使用docker image(erwinchang/ubuntu-12.04-32bit-build)
+- 進入docker( image: erwinchang/ubuntu-12.04-32bit-build)
 ```
-git clone git@github.com:erwinchang/docker.git
 cd docker/build-env/build
 ./run.sh
 ```
 
 ## hiv100 build 
-開啟docker(docker/build-env/build/run.sh)
+建入docker後，souce hiv100_env即可
 ```
 source hiv100_env
 cd openwrt-library
@@ -41,7 +39,7 @@ make
 ```
 
 ## hiv300 build 
-開啟docker(docker/build-env/build/run.sh)
+建入docker後，souce hiv100_env即可
 ```
 source hiv300_env
 cd openwrt-library
