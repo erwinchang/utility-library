@@ -16,6 +16,11 @@ export CROSS 		:= arm-hisiv300-linux
 SFLAG				:= -march=armv7-a -mfloat-abi=softfp -mfpu=neon-vfpv4 -mno-unaligned-access -fno-aggressive-loop-optimizations
 endif
 
+ifeq (hiv400,$(GIT_TARGET_ARCH))
+export CROSS 		:= arm-hisiv400-linux
+SFLAG				:= -march=armv7-a -mfloat-abi=softfp -mfpu=neon-vfpv4 -mno-unaligned-access -fno-aggressive-loop-optimizations
+endif
+
 
 export TARGETMACH 	:= ${CROSS}
 export CC			:= ${CROSS}-gcc

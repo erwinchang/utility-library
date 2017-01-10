@@ -1,0 +1,16 @@
+git config --global core.autocrlf false
+git config core.filemode false
+
+export GIT_TARGET_ARCH=hiv400
+export GIT_TOP_DIR=$PWD
+chmod +x $GIT_TOP_DIR/scripts/*.sh
+
+chk=$(which arm-hisiv400-linux-gcc)
+if [ "x$chk" == "x" ]; then
+    #install toolchain
+    . scripts/chk_hiv400.sh
+    export PATH="$PATH:/opt/hisi-linux/x86-arm/arm-hisiv400-linux/target/bin"
+fi
+
+chmod +x $GIT_TOP_DIR/scripts/get_appver.sh
+source scripts/default_bashrc

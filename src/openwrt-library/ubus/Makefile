@@ -15,6 +15,9 @@ endif
 ifeq (hiv300,$(GIT_TARGET_ARCH))
 export SFLAG				:= -march=armv7-a -mfloat-abi=softfp -mfpu=neon-vfpv4 -mno-unaligned-access -fno-aggressive-loop-optimizations
 endif
+ifeq (hiv400,$(GIT_TARGET_ARCH))
+export SFLAG				:= -march=armv7-a -mfloat-abi=softfp -mfpu=neon-vfpv4 -mno-unaligned-access -fno-aggressive-loop-optimizations
+endif
 
 all:
 	-mkdir -p $(STAGE_PATH)
